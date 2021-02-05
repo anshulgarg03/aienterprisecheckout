@@ -1,0 +1,15 @@
+<div class="container">
+  <nav aria-label="breadcrumb" class="breadcrumb-nav box-shadow">
+    <ol class="breadcrumb bg-white">
+      <ng-container *ngFor="let item of breadCrumbs;let last=last;">
+        <li class="breadcrumb-item" *ngIf="!last">
+          <a>{{item.text}}</a>
+        </li>
+        <li class="breadcrumb-item active" *ngIf="last">
+          {{item.text}}
+        </li>
+      </ng-container>
+    </ol>
+  </nav>
+  <app-checkoutpage></app-checkoutpage>
+</div>

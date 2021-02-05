@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-12 col-lg-9 p-3">
+        <div class="border-bottom">
+            <h6>SHOPPING CART({{item?.length}})</h6>
+        </div>
+        <div class="border-bottom py-2 d-none d-lg-block">
+            <div class="row">
+                <div class="col-12 col-lg-5">PRODUCT</div>
+                <div class="col-3 col-lg-2">QTY</div>
+                <div class="col-3 col-lg-2">PRICE</div>
+                <div class="col-3 col-lg-2">TOTAL</div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+        <div *ngFor="let i of item" class="border mt-3">
+            <div class="row p-3">
+                <div class="col-12 col-lg-5">
+                    <div class="d-flex">
+                        <img [src]="i.imageUrl" />
+                        <div>
+                            <h6 class=" text-primary">{{i.itemName}}</h6>
+                            <p class=" text-primary font-weight-bold font-size-small">Model: {{i.modelNumber}} | Sku:
+                                {{i.modelCode}}</p>
+                            <div *ngIf="i.bmFinanceDetail.financeImg">
+                                <span><img [src]="i.bmFinanceDetail.financeImg" />
+                                    {{i.bmFinanceDetail.financePromoMsg}}</span>
+                            </div>
+                            <div class=" text-danger font-weight-bold" *ngIf="i.freeShipping===true">
+                                FREE DELIVERY at this Price
+                            </div>
+                            <div class="d-flex align-items-center cursor-pointer">
+                                <span class="mdi mdi-heart-outline text-danger font-size-big mr-2"></span>
+                                <span>Add to wishlist</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 col-lg-2">
+                    <div class="d-flex">
+                        <div class="border px-2">-</div>
+                        <div class="border px-2">{{i.itemQuantity}}</div>
+                        <div class="border px-2">+</div>
+                    </div>
+                </div>
+                <div class="col-3 col-lg-2">${{i.itemAmount.itemPrice}}</div>
+                <div class="col-3 col-lg-2">${{i.itemAmount.itemTotalPrice}}</div>
+                <div class="col-1">
+                    <span class="font-size-big mdi mdi-delete-outline text-secondary cursor-pointer"></span>
+                </div>
+            </div>
+            <div *ngIf="i.shippingMethod !== 'EMAIL'" class="border-top p-4 d-flex flex-column flex-lg-row bg-light">
+                Choose your delivery option:
+                <select class="mx-lg-3 my-3 my-lg-0 form-control" [(ngModel)]="i.shippingType">
+                    <option *ngFor="let ishiptype of shiptype" [value]="ishiptype.value">{{ishiptype.text}}</option>
+                </select>
+                <select class="form-control" *ngIf="i.shippingType==='Store'" [(ngModel)]="i.storeId">
+                    <option *ngFor="let istore of i.stores" [value]="istore.storeId">{{istore.storeName}}</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-12 col-lg-3 font-size-small">
+        <div class="border p-3 mb-4">
+            <div class="border-bottom font-weight-bold">
+                ORDER SUMMARY
+            </div>
+            <div class=" border-bottom py-3">
+                <div class="d-flex justify-content-between">
+                    <span>Subtotal</span>
+                    <span class=" font-weight-bold">${{cartSummary?.subtotal}}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Estimated Shipping</span>
+                    <span class=" font-weight-bold">${{cartSummary?.shippingAmount}}</span>
+                </div>
+            </div>
+            <div class=" border-bottom d-flex justify-content-between py-3">
+                <span>Estimated Total</span>
+                <span class=" font-weight-bold">${{cartSummary?.cartTotal}}</span>
+            </div>
+            <div>
+                <i class="text-danger">*</i><small>Sale tax will be calculated at checkout</small>
+            </div>
+            <div class="text-center py-3">
+                <button class="btn btn-danger font-size-small">
+                    START SECURED CHECKOUT
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
